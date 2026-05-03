@@ -313,6 +313,43 @@ header.site .wrap {
   width: 100%; height: 100%;
   border: 0;
 }
+.vod-link {
+  position: absolute; inset: 0;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+.vod-link img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .3s ease, filter .3s ease;
+  filter: brightness(.85);
+}
+.vod-link:hover img { transform: scale(1.03); filter: brightness(.7); }
+.vod-link .play-btn {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: rgba(0,0,0,.75);
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition);
+  border: 2px solid rgba(255,255,255,.95);
+}
+.vod-link:hover .play-btn {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+.vod-link .play-btn svg { width: 28px; height: 28px; color: #fff; margin-left: 4px; }
+.vod-link:hover .play-btn svg { color: #0d2308; }
+.vod-link .vod-caption {
+  position: absolute; left: 16px; bottom: 14px; right: 16px;
+  color: #fff; font-size: 13px; font-weight: 700;
+  text-shadow: 0 1px 6px rgba(0,0,0,.55);
+  letter-spacing: -.01em;
+}
 
 .action-row {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -684,14 +721,13 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
           </ul>
 
           <div class="vod-slot" data-week="1">
-            <div class="ph">
-              <div class="em">⏰</div>
-              <div class="ttl">오픈 준비중</div>
-              <div class="desc">곧 공개됩니다</div>
-            </div>
-            <!-- 채울 때: 위 ph div를 지우고 아래 iframe 활성화
-            <iframe src="https://www.youtube.com/embed/VIDEO_ID" allow="accelerometer; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-            -->
+            <a class="vod-link" href="https://youtu.be/i0_hvYqjK-c" target="_blank" rel="noopener" aria-label="WEEK 01 강의 영상 YouTube에서 보기">
+              <img src="https://i.ytimg.com/vi/i0_hvYqjK-c/maxresdefault.jpg" alt="WEEK 01 — 내 자산 그릇 점검하기" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/i0_hvYqjK-c/hqdefault.jpg'">
+              <span class="play-btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+              <span class="vod-caption">▶ YouTube에서 강의 보기 · WEEK 01</span>
+            </a>
           </div>
         </div>
       </article>
@@ -714,8 +750,8 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
           <div class="vod-slot" data-week="2">
             <div class="ph">
               <div class="em">⏰</div>
-              <div class="ttl">오픈 준비중</div>
-              <div class="desc">곧 공개됩니다</div>
+              <div class="ttl">5월 11일(월) 오픈 예정</div>
+              <div class="desc">2주차 강의는 5/11에 공개됩니다</div>
             </div>
           </div>
         </div>
@@ -741,8 +777,8 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
           <div class="vod-slot" data-week="3">
             <div class="ph">
               <div class="em">⏰</div>
-              <div class="ttl">오픈 준비중</div>
-              <div class="desc">곧 공개됩니다</div>
+              <div class="ttl">5월 18일(월) 오픈 예정</div>
+              <div class="desc">3주차 강의는 5/18에 공개됩니다</div>
             </div>
           </div>
         </div>
@@ -768,8 +804,8 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
           <div class="vod-slot" data-week="4">
             <div class="ph">
               <div class="em">⏰</div>
-              <div class="ttl">오픈 준비중</div>
-              <div class="desc">곧 공개됩니다</div>
+              <div class="ttl">5월 25일(월) 오픈 예정</div>
+              <div class="desc">4주차 강의는 5/25에 공개됩니다</div>
             </div>
           </div>
         </div>

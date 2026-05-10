@@ -316,8 +316,12 @@ header.site .wrap {
 .vod-link {
   position: absolute; inset: 0;
   display: block;
+  width: 100%; height: 100%;
+  padding: 0;
   overflow: hidden;
   cursor: pointer;
+  background: transparent;
+  border: 0;
 }
 .vod-link img {
   width: 100%; height: 100%;
@@ -720,14 +724,14 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>나만의 통합 로드맵 초안 작성</li>
           </ul>
 
-          <div class="vod-slot" data-week="1">
-            <a class="vod-link" href="https://youtu.be/i0_hvYqjK-c" target="_blank" rel="noopener" aria-label="WEEK 01 강의 영상 YouTube에서 보기">
+          <div class="vod-slot" data-week="1" data-yt="i0_hvYqjK-c">
+            <button class="vod-link" type="button" aria-label="WEEK 01 강의 영상 재생">
               <img src="https://i.ytimg.com/vi/i0_hvYqjK-c/maxresdefault.jpg" alt="WEEK 01 — 내 자산 그릇 점검하기" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/i0_hvYqjK-c/hqdefault.jpg'">
               <span class="play-btn" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
               </span>
-              <span class="vod-caption">▶ YouTube에서 강의 보기 · WEEK 01</span>
-            </a>
+              <span class="vod-caption">▶ 재생 · WEEK 01</span>
+            </button>
           </div>
         </div>
       </article>
@@ -744,15 +748,17 @@ footer.site .copy { font-size: 12px; line-height: 1.65; color: var(--text-faint-
           <span class="week-block-label lecture">강의 주제</span>
           <ul class="week-checks">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>내 집 마련 기초</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>최신 정책에 맞는 내 집 마련 전략</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>프롭테크 활용</li>
           </ul>
 
-          <div class="vod-slot" data-week="2">
-            <div class="ph">
-              <div class="em">⏰</div>
-              <div class="ttl">5월 11일(월) 오픈 예정</div>
-              <div class="desc">2주차 강의는 5/11에 공개됩니다</div>
-            </div>
+          <div class="vod-slot" data-week="2" data-yt="80oScjwixxk">
+            <button class="vod-link" type="button" aria-label="WEEK 02 강의 영상 재생">
+              <img src="https://i.ytimg.com/vi/80oScjwixxk/maxresdefault.jpg" alt="WEEK 02 — 내 집 마련 전략" loading="lazy" onerror="this.src='https://i.ytimg.com/vi/80oScjwixxk/hqdefault.jpg'">
+              <span class="play-btn" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </span>
+              <span class="vod-caption">▶ 재생 · WEEK 02</span>
+            </button>
           </div>
         </div>
       </article>
@@ -890,6 +896,25 @@ const io = new IntersectionObserver((entries) => {
   });
 }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// YouTube 인라인 재생 — 썸네일 클릭 시 같은 자리에서 iframe으로 교체
+document.querySelectorAll('.vod-slot[data-yt]').forEach(slot => {
+  const trigger = slot.querySelector('.vod-link');
+  if (!trigger) return;
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = slot.dataset.yt;
+    if (!id) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&playsinline=1&modestbranding=1`;
+    iframe.title = trigger.getAttribute('aria-label') || '강의 영상';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    iframe.loading = 'lazy';
+    slot.innerHTML = '';
+    slot.appendChild(iframe);
+  });
+});
 </script>
 </body>
 </html>
